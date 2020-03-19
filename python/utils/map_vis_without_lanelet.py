@@ -118,7 +118,7 @@ def draw_map_without_lanelet(filename, axes, lat_origin, lon_origin):
         elif way_type == "stop_line":
             type_dict = dict(color="white", linewidth=3, zorder=10)
         elif way_type == "virtual":
-            type_dict = dict(color="blue", linewidth=1, zorder=10, dashes=[2, 5])
+            type_dict = dict(color="blue", linewidth=1, zorder=10, dashes=[1, 1], alpha=0.2)
         elif way_type == "road_border":
             type_dict = dict(color="black", linewidth=1, zorder=10)
         elif way_type == "guard_rail":
