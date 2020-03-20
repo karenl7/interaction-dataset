@@ -21,7 +21,7 @@ def polygon_xy_from_motionstate(ms, width, length):
     return rotate_around_center(np.array([lowleft, lowright, upright, upleft]), np.array([ms.x, ms.y]), yaw=ms.psi_rad)
 
 
-def update_objects_plot(timestamp, track_dict, patches_dict, text_dict, axes):
+def update_objects_plot(timestamp, track_dict, patches_dict, text_dict, axes, color="lightskyblue", idxs=[]):
     for key, value in track_dict.items():
         assert isinstance(value, Track)
         if value.time_stamp_ms_first <= timestamp <= value.time_stamp_ms_last:
@@ -34,7 +34,7 @@ def update_objects_plot(timestamp, track_dict, patches_dict, text_dict, axes):
                 length = value.length
 
                 rect = matplotlib.patches.Polygon(polygon_xy_from_motionstate(ms, width, length), closed=True,
-                                                  zorder=20)
+                                                  zorder=20, color="red" if key in idxs else color)
                 patches_dict[key] = rect
                 axes.add_patch(rect)
                 text_dict[key] = axes.text(ms.x, ms.y + 2, str(key), horizontalalignment='center', zorder=30)
@@ -49,3 +49,4 @@ def update_objects_plot(timestamp, track_dict, patches_dict, text_dict, axes):
                 patches_dict.pop(key)
                 text_dict[key].remove()
                 text_dict.pop(key)
+
